@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0f172a">
+    <title>Contact Av botz | Aman Vishwakarma</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES --- */
+        :root {
+            --primary: #00f2ea; /* Cyan */
+            --secondary: #ff0050; /* Neon Pink */
+            --text-main: #ffffff;
+            --text-dim: #cbd5e1;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+
+        body {
+            background-color: #0f172a;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 20px; /* Padding for mobile edges */
+        }
+
+        /* --- BACKGROUND ANIMATION (Optimized) --- */
+        .background-blobs {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2; overflow: hidden; background: #020617;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            animation: float 10s infinite alternate ease-in-out;
+            will-change: transform; /* Performance Booster */
+        }
+
+        .blob-1 {
+            top: -10%; left: -10%; width: 50vw; height: 50vw;
+            max-width: 500px; max-height: 500px;
+            background: linear-gradient(135deg, #4f46e5, #818cf8);
+        }
+
+        .blob-2 {
+            bottom: -10%; right: -10%; width: 60vw; height: 60vw;
+            max-width: 600px; max-height: 600px;
+            background: linear-gradient(135deg, #c026d3, #db2777);
+            animation-delay: -5s;
+        }
+
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px);
+            z-index: -1;
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); /* Safari Support */
+            text-align: center;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease-out;
+            transform-style: preserve-3d;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1 { 
+            font-size: 2.5rem; font-weight: 700; margin-bottom: 15px; 
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        p.desc { 
+            color: var(--text-dim); margin-bottom: 30px; font-size: 1rem; line-height: 1.6; 
+        }
+
+        /* --- CONTACT CARDS --- */
+        .cards-list { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+
+        .info-card {
+            display: flex; align-items: center; gap: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            padding: 16px; border-radius: 16px;
+            text-decoration: none; text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        /* Desktop Hover Effects Only */
+        @media (hover: hover) {
+            .info-card:hover {
+                transform: translateY(-3px);
+                border-color: var(--primary);
+                background: rgba(0, 242, 234, 0.05);
+            }
+            .social-btn:hover {
+                border-color: var(--secondary); color: var(--secondary);
+                transform: translateY(-5px);
+                background: rgba(255, 0, 80, 0.1);
+            }
+        }
+
+        /* Active State for Mobile (Touch Feedback) */
+        .info-card:active {
+            transform: scale(0.98);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .icon-box {
+            width: 45px; height: 45px;
+            background: rgba(255,255,255,0.05);
+            color: var(--primary);
+            border-radius: 12px; display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem; flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+
+        .card-text h3 { font-size: 1rem; color: #fff; font-weight: 600; margin-bottom: 2px; }
+        .card-text p { color: var(--text-dim); font-size: 0.85rem; }
+
+        /* --- SOCIAL ICONS --- */
+        .social-row { 
+            margin-top: 30px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+        }
+        
+        .social-btn {
+            width: 45px; height: 45px; border-radius: 50%;
+            border: 1px solid var(--border); display: flex;
+            justify-content: center; align-items: center;
+            color: var(--text-dim); text-decoration: none; transition: 0.3s;
+            background: rgba(0, 0, 0, 0.3); font-size: 1.1rem;
+        }
+
+        /* --- KEYFRAMES --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 30px); }
+        }
+
+        /* --- MOBILE RESPONSIVE TWEAKS --- */
+        @media (max-width: 480px) {
+            .container { padding: 25px 20px; }
+            h1 { font-size: 2rem; }
+            p.desc { font-size: 0.95rem; margin-bottom: 25px; }
+            .info-card { padding: 14px; }
+            .blob { filter: blur(40px); opacity: 0.4; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+    <div class="overlay"></div>
+
+    <div class="container" id="tiltCard">
+        
+        <h1>Let's Connect</h1>
+        <p class="desc">Ready to start a new project? I am available for freelance work and open to new opportunities.</p>
+
+        <div class="cards-list">
+            <a href="https://t.me/BOT_OWNER26" target="_blank" class="info-card">
+                <div class="icon-box"><i class="fab fa-telegram-plane"></i></div>
+                <div class="card-text">
+                    <h3>Telegram</h3>
+                    <p>@BOT_OWNER26</p>
+                </div>
+            </a>
+
+            <a href="https://www.instagram.com/av.developerr" target="_blank" class="info-card">
+                <div class="icon-box"><i class="fab fa-instagram"></i></div>
+                <div class="card-text">
+                    <h3>Instagram</h3>
+                    <p>@av.developerr </p>
+                </div>
+            </a>
+
+            <div class="info-card">
+                <div class="icon-box"><i class="fas fa-envelope"></i></div>
+                <div class="card-text">
+                    <h3>Email</h3>
+                    <p>avbotz26@gmail.com</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="social-row">
+            <a href="https://github.com/Botsthe" class="social-btn"><i class="fab fa-github"></i></a>
+            <a href="https://x.com/Aman_developerr" class="social-btn"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/aman-vishwakarma-a52628392?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.facebook.com/share/14U3jMsaiCH/" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+        </div>
+
+    </div>
+
+    <script>
+        // Logic: Enable 3D Tilt ONLY on Desktop (Screen width > 768px)
+        const container = document.getElementById('tiltCard');
+        
+        if (window.innerWidth > 768) {
+            container.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Tilt Calculation
+                const rotateX = ((y - rect.height/2) / 25) * -1;
+                const rotateY = (x - rect.width/2) / 25;
+
+                container.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            container.addEventListener('mouseleave', () => {
+                container.style.transform = `perspective(1000px) rotateX(0) rotateY(0)`;
+                container.style.transition = 'transform 0.5s ease';
+            });
+            
+            container.addEventListener('mouseenter', () => {
+                container.style.transition = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
